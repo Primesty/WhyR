@@ -1,17 +1,26 @@
+---
+title: "WhyR"
+author: "M_Raess"
+date: "October 27, 2016"
+output: html_document
+---
 
-## Why R - packages to be used
 
+Why R - packages to be used
+```{r, echo = FALSE, message=FALSE}
 library(dplyr)
 library(ggplot2)
 library(scales)
 library(ggiraph)
 library(RColorBrewer)
-library(yarrr)
+
 library(RCurl)
 library(findviews)
+```
 
 # How R structures data - the data frame
-
+## Built in data sets
+```{r, echo=FALSE}
 data("mtcars", "iris")
 
 head(mtcars)
@@ -19,15 +28,16 @@ summary(mtcars)
 str(mtcars)
 findviews(mtcars)
 
-View(mtcars)
-View(iris)
+#View(mtcars)
+#View(iris)
+```
 
-## Built in data sets
 
 
 
 ### 3. Getting some online data (RCurl package)
 
+```{r, echo=TRUE, eval=FALSE}
 onlineData <- getURL("http://www.onthelambda.com/wp-content/uploads/2014/07/CrimeStatebyState.csv",
                     ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
 
@@ -35,4 +45,4 @@ class(onlineData) # needs to be put into a dataframe
 
 crimeData <- read.csv(textConnection(onlineData), header = TRUE)
 rm(onlineData) # removes onlineData
-
+```
