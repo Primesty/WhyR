@@ -24,6 +24,39 @@ View(iris)
 
 ## Built in data sets
 
+# Histogram for quantitative variables
+
+hist(mtcars$hp, col = "blue")
+
+ggplot(mtcars, aes(hp)) +
+        geom_histogram(binwidth = 10, fill = "red", col = "black") +
+        ggtitle("Histogram HP") +
+        xlab("Horsepower") +
+        ylab("Counts")
+
+ggplot(mtcars, aes(hp)) +
+        geom_histogram(aes(y = ..density..), fill = "#fd5c63", binwidth = 10, col = "black") +
+        stat_function(fun = dnorm, color = "goldenrod", lwd = 1,
+                      args=list(mean = mean(mtcars$hp), sd = sd(mtcars$hp))) +
+        geom_density(color = "steelblue", lwd = 1, fill = "steelblue", alpha = .5)
+
+# Barplot for categorical variables
+
+mtcars2 <- mtcars
+mtcars2 <- mutate(mtcars, gear = as.factor(gear))
+
+ggplot(mtcars2, aes(gear)) +
+        geom_bar(fill = "red", col = "black") +
+        
+
+# Boxplots for quantitative variables
+
+ggplot(mtcars2, aes(gear, hp)) +
+        geom_boxplot(fill = "bisque") + 
+        coord_flip() +
+        stat_summary(fun.y=mean, geom="point", shape=1, size=2, col = "purple") +
+        stat_boxplot(geom = "errorbar")
+
 
 ### Play around with colors a little - get Twitter blue, Facebook blue, (brandcolors.net)
 
@@ -31,7 +64,7 @@ library(dplyr)
 meanHp <- mtcars %>%
         group_by(cyl) %>%
         filter(!is.na(hp)) %>%
-        summarise(avg_hp = mean(hp, na.rm=TRUE))
+        summarize(avg_hp = mean(hp, na.rm=TRUE))
 library(ggplot2)
 
 p1 <- ggplot(meanHp, aes(avg_hp, cyl, label = round(avg_hp, 2))) +
