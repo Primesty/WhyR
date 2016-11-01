@@ -57,11 +57,18 @@ names(myColors) <- c("4", "3", "5") # change the level-colors according to order
 
 
 ggplot(mtcars2, aes(gear, hp)) +
-        geom_boxplot(aes(fill = gear), show.legend = TRUE) +
+        geom_boxplot(aes(fill = gear), col = "orange", show.legend = FALSE) +
         scale_fill_manual(name = "Test", values = myColors) +
         coord_flip() +
-        stat_summary(fun.y=mean, geom="point", shape=1, size=2, col = "purple") +
-        stat_boxplot(geom = "errorbar")
+        stat_summary(fun.y=mean, geom="point", shape=16, size=2, col = "yellow") +
+        stat_boxplot(geom = "errorbar", col = "red", lty = 2, lwd = 1) +
+        theme(axis.text = element_text(size = 12),
+                panel.grid.major = element_line(color = "grey"),
+                panel.grid.minor = element_line(color = "grey"), # element_blank() gets rid of minor grid
+                panel.background = element_rect(fill = "white", color = "black"))+
+        ggtitle("Boxplot of HP/Gears") +
+        ylab("Gears") +
+        xlab("Horsepower")
 
 ### Play around with colors a little - get Twitter blue, Facebook blue, (brandcolors.net)
 
