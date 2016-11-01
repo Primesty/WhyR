@@ -57,7 +57,6 @@ ggplot(mtcars2, aes(gear, hp)) +
         stat_summary(fun.y=mean, geom="point", shape=1, size=2, col = "purple") +
         stat_boxplot(geom = "errorbar")
 
-
 ### Play around with colors a little - get Twitter blue, Facebook blue, (brandcolors.net)
 
 library(dplyr)
