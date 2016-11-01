@@ -51,8 +51,14 @@ ggplot(mtcars2, aes(gear)) +
 
 # Boxplots for quantitative variables
 
+myColors <- c("#1da1f2", "#fd5c63", "#003a70")
+names(myColors) <- levels(mtcars2$gear)
+names(myColors) <- c("4", "3", "5") # change the level-colors according to order
+
+
 ggplot(mtcars2, aes(gear, hp)) +
-        geom_boxplot(fill = "bisque") + 
+        geom_boxplot(aes(fill = gear), show.legend = TRUE) +
+        scale_fill_manual(name = "Test", values = myColors) +
         coord_flip() +
         stat_summary(fun.y=mean, geom="point", shape=1, size=2, col = "purple") +
         stat_boxplot(geom = "errorbar")
