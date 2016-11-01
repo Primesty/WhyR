@@ -67,8 +67,8 @@ ggplot(mtcars2, aes(gear, hp)) +
                 panel.grid.minor = element_line(color = "grey"), # element_blank() gets rid of minor grid
                 panel.background = element_rect(fill = "white", color = "black"))+
         ggtitle("Boxplot of HP/Gears") +
-        ylab("Gears") +
-        xlab("Horsepower")
+        xlab("Gears") +
+        ylab("Horsepower")
 
 ### Play around with colors a little - get Twitter blue, Facebook blue, (brandcolors.net)
 
