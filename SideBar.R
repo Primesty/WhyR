@@ -30,9 +30,11 @@ crimeSpread <- sample_n(crimeData, 20) # default, replace = FALSE
 write.xlsx(crimeSpread, file = "crimeSpread.xlsx", row.names = FALSE)
 
 library(reshape2)
-
+library(tidyr)
 dcast(crimeSpread, formula = State + Type.of.Crime + Year + Count ~ Crime) # to show how an untidy data
 # set looks
+
+spread(crimeSpread, State, Crime) #tidyr
 
 x = sample(rnorm(40, 0, 1), 40)
 y = rep(c("one", "two", "three", "four"), 5)

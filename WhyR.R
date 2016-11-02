@@ -58,10 +58,19 @@ myColors <- c("#1da1f2", "#fd5c63", "#003a70")
 names(myColors) <- levels(mtcars2$gear)
 names(myColors) <- c("4", "3", "5") # change the level-colors according to order
 
+## Add an example with RColorBrewer
+
+display.brewer.all()
+
+piratepal(palette = "all")
+
+myColors2 <- brewer.pal(3, "Pastel1")
+
+myColors3 <- unname(piratepal(palette = "google"))
 
 ggplot(mtcars2, aes(gear, hp)) +
         geom_boxplot(aes(fill = gear), col = "orange", show.legend = TRUE) +
-        scale_fill_manual(name = "Gears", values = myColors) +
+        scale_fill_manual(name = "Gears", values = myColors3) +
         coord_flip() +
         stat_summary(fun.y=mean, geom="point", shape=16, size=2, col = "yellow") +
         stat_boxplot(geom = "errorbar", col = "red", lty = 2) +
