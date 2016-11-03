@@ -12,7 +12,7 @@ library(findviews)
 
 # How R structures data - the data frame
 
-data("mtcars", "iris")
+data("mtcars")
 
 head(mtcars)
 summary(mtcars)
@@ -47,7 +47,7 @@ mtcars2 <- mtcars
 mtcars2 <- mutate(mtcars, gear = as.factor(gear))
 
 ggplot(mtcars2, aes(gear)) +
-        geom_bar(fill = "red", col = "black") +
+        geom_bar(fill = "red", col = "black")
         
 
 # Boxplots for quantitative variables
@@ -58,13 +58,13 @@ myColors <- c("#1da1f2", "#fd5c63", "#003a70")
 names(myColors) <- levels(mtcars2$gear)
 names(myColors) <- c("4", "3", "5") # change the level-colors according to order
 
-## Add an example with RColorBrewer
+## Colors with RColorBrewer and yarrr
 
 display.brewer.all()
 
-piratepal(palette = "all")
-
 myColors2 <- brewer.pal(3, "Pastel1")
+
+piratepal(palette = "all") # yarrr
 
 myColors3 <- unname(piratepal(palette = "google"))
 
@@ -145,14 +145,37 @@ ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
         scale_x_continuous(breaks = c(1960, 1965, 2000)) +
         scale_y_continuous(labels = comma)
 
+## We are getting more selective
 
-crime2000 <- crimeData %>% filter(Year == 2002) %>% group_by(State) %>% summarize(counts = sum(Count)) %>% arrange(desc(counts)) %>% filter(counts > 350445)
+crimeSel <- crimeData %>% 
+        filter(Year == 2002:2003 & !is.na(Year)) %>% 
+        group_by(State, Year) %>% 
+        summarize(counts = sum(Count)) %>%
+        arrange(desc(counts))
+
+crimeSel$Year <- as.factor(crimeSel$Year)
+
+ggplot(crimeSel, aes(reorder(State, counts), counts, fill = Year)) + 
+        geom_bar(stat = "identity", position = "dodge") + 
+        scale_fill_manual(values = c("steelblue", "goldenrod")) +
+        theme(axis.text.x = element_text(angle = 90)) + 
+        scale_y_continuous(labels = comma)
+
+
+crime2000 <- crimeData %>% 
+        filter(Year == 2002) %>% 
+        group_by(State) %>% 
+        summarize(counts = sum(Count)) %>% 
+        arrange(desc(counts)) %>% 
+        filter(counts > 350445)
+
 head(crime2000,10)
 
 library(scales) # for label formatting
 library(RColorBrewer)
 
-crime <-ggplot(crime2000, aes(reorder(State,counts), counts)) + geom_bar(stat = "identity", aes(fill = State)) + 
+crime <-ggplot(crime2000, aes(reorder(State,counts), counts)) + 
+        geom_bar(stat = "identity", aes(fill = State)) + 
         scale_fill_manual(values = brewer.pal(10, "Paired"), guide = FALSE) +
         theme(axis.text.x  = element_text(angle=45, vjust=0.5, size=10), axis.title.x = element_blank()) +
         scale_y_continuous(labels = comma, breaks = c(0, 250000, 500000, 750000, 1000000, 1250000)) + #scales (comma, scientific)
