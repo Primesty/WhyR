@@ -58,7 +58,7 @@ readRDS("testData.rds") # reads the file and plots it but has to be stored in ne
 load("testData.RData") # loads the data right away
 
 
-## Get data from github - does not work with private repos!!!
+## Get data from github - does not work on private repos!!!
 
 library(RCurl) # for csv etc
 

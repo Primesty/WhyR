@@ -110,11 +110,11 @@ ggplot(mtcars2, aes(gear, hp)) +
 
 ```
 
-### It is getting more intense - we are going to plot the meanHP/cylinder
+## It is getting more intense - we are going to plot the meanHP/cylinder
 
-## Some data-processing to get mean hp (we create a new dataset with meanHP and cyl from mtcars)
+### Some data-processing to get mean hp (we create a new dataset with meanHP and cyl from mtcars)
 
-```{r}
+```{r, message=FALSE}
 meanHp <- mtcars %>%
         group_by(cyl) %>%
         filter(!is.na(hp)) %>%
@@ -203,7 +203,7 @@ ggplot(crimeSel, aes(reorder(State, counts), counts, fill = Year)) +
 
 ### Top 10 states/crime counts in the year 2002
 
-```{r}
+```{r, message=FALSE}
 crime2000 <- crimeData %>% 
         filter(Year == 2002) %>% 
         group_by(State) %>% 
@@ -224,6 +224,8 @@ crime <-ggplot(crime2000, aes(reorder(State,counts), counts)) +
         geom_text(aes(State, counts, label = counts), vjust = -0.5) +
         ggtitle("Top 10 states by total crimes") +
         ylab("Totals")
+
+crime
 
 ggsave(crime, filename = "crimePlot.png")
 ```
