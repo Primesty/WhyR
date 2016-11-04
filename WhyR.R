@@ -10,7 +10,7 @@ library(yarrr)
 library(RCurl)
 library(findviews)
 
-# How R structures data - the data frame
+# How R structures data - the data frame - test
 
 data("mtcars")
 
@@ -21,13 +21,13 @@ str(mtcars)
 findviews(mtcars) # gives you a great overview of categorical and continous variables
 
 View(mtcars)
-View(iris)
+
 
 ## Built in data sets
 
 # Histogram for quantitative variables
 
-hist(mtcars$hp, col = "blue")
+hist(mtcars$hp), col = "blue")
 
 ggplot(mtcars, aes(hp)) +
         geom_histogram(binwidth = 10, fill = "red", col = "black") +
@@ -141,7 +141,7 @@ ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
         geom_line() +
         geom_point() +
         scale_color_manual(values = brewer.pal(2, "Paired")) +
-        geom_smooth(method = "loess", na.rm = TRUE) +
+        geom_smooth(method = "loess", na.rm = TRUE, se=TRUE) +
         scale_x_continuous(breaks = c(1960, 1965, 2000)) +
         scale_y_continuous(labels = comma)
 
