@@ -27,7 +27,7 @@ View(mtcars)
 
 # Histogram for quantitative variables
 
-hist(mtcars$hp), col = "blue")
+hist(mtcars$hp, col = "blue")
 
 ggplot(mtcars, aes(hp)) +
         geom_histogram(binwidth = 10, fill = "red", col = "black") +
