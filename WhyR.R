@@ -141,7 +141,8 @@ ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
         geom_line() +
         geom_point() +
         scale_color_manual(values = brewer.pal(2, "Paired")) +
-        geom_smooth(method = "loess", na.rm = TRUE, se=TRUE) +
+        geom_smooth(method = "loess", na.rm = TRUE, se=TRUE, fullrange = TRUE, fill = "navy", color = 'tomato', level = .99, alpha = .6) +
+        facet_grid(Type.of.Crime ~.) +
         scale_x_continuous(breaks = c(1960, 1965, 2000)) +
         scale_y_continuous(labels = comma)
 

@@ -29,10 +29,16 @@ crimeSpread <- sample_n(crimeData, 20) # default, replace = FALSE
 
 write.xlsx(crimeSpread, file = "crimeSpread.xlsx", row.names = FALSE)
 
+### Un-tidying the data set
+
 library(reshape2)
 library(tidyr)
-dcast(crimeSpread, formula = State + Type.of.Crime + Year + Count ~ Crime) # to show how an untidy data
+
+untidyDat <- dcast(crimeSpread, formula = State + Type.of.Crime + Year + Count ~ Crime) # to show how an untidy data
 # set looks
+
+write.xlsx(x = untidyDat, file = "untidyDat.xlsx",
+           sheetName = "spread2", row.names = FALSE)
 
 spread(crimeSpread, State, Crime) #tidyr
 
