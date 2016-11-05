@@ -14,26 +14,32 @@ library(findviews)
 
 data("mtcars")
 
-head(mtcars)
-summary(mtcars)
-str(mtcars)
+head(mtcars) # gives us the first six rows alt. head(mtcars, 10)
+
+summary(mtcars) # summary stats
+
+str(mtcars) # structure of your data set
 
 findviews(mtcars) # gives you a great overview of categorical and continous variables
 
-View(mtcars)
+View(mtcars) # brings up the data set
 
 
-## Built in data sets
+## Built-in data sets
 
 # Histogram for quantitative variables
 
-hist(mtcars$hp, col = "blue")
+hist(mtcars$hp, col = "blue") # very simple version
+
+## Now we are going to use ggplot2
 
 ggplot(mtcars, aes(hp)) +
         geom_histogram(binwidth = 10, fill = "red", col = "black") +
         ggtitle("Histogram HP") +
         xlab("Horsepower") +
         ylab("Counts")
+
+## overlay density curve and normal dist
 
 ggplot(mtcars, aes(hp)) +
         geom_histogram(aes(y = ..density..), fill = "#fd5c63", binwidth = 10, col = "black") +
@@ -44,7 +50,7 @@ ggplot(mtcars, aes(hp)) +
 # Barplot for categorical variables
 
 mtcars2 <- mtcars
-mtcars2 <- mutate(mtcars, gear = as.factor(gear))
+mtcars2 <- mutate(mtcars, gear = as.factor(gear)) # we have to change gear from num to fact
 
 ggplot(mtcars2, aes(gear)) +
         geom_bar(fill = "red", col = "black")
@@ -141,7 +147,7 @@ ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
         geom_line() +
         geom_point() +
         scale_color_manual(values = brewer.pal(2, "Paired")) +
-        geom_smooth(method = "loess", na.rm = TRUE, se=TRUE, fullrange = TRUE, fill = "navy", color = 'tomato', level = .99, alpha = .6) +
+        geom_smooth(method = "loess", na.rm = TRUE, se=TRUE, fullrange = TRUE, fill = "navy", color = 'tomato', level = .95, alpha = .6) +
         facet_grid(Type.of.Crime ~.) +
         scale_x_continuous(breaks = c(1960, 1965, 2000)) +
         scale_y_continuous(labels = comma)
