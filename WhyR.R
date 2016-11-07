@@ -1,5 +1,5 @@
 
-## Why R - packages to be used m
+## Why R - packages to be used
 
 library(dplyr)
 library(ggplot2)
