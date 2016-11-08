@@ -55,7 +55,6 @@ mtcars2 <- mutate(mtcars, gear = as.factor(gear)) # we have to change gear from 
 ggplot(mtcars2, aes(gear)) +
         geom_bar(fill = "red", col = "black")
         
-
 # Boxplots for quantitative variables
 
 ## Get brandcolors - woohoo - brandcolors.net (hex-code)
