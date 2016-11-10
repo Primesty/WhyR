@@ -10,7 +10,7 @@ library(dplyr)
 
 set.seed(666)
 crimeSpread <- sample_n(crimeData, 20) # default, replace = FALSE
-
+library(xlsx)
 write.xlsx(crimeSpread, file = "crimeSpread.xlsx", row.names = FALSE)
 
 ## Subsetting and 'subtracting' data from crimeData
@@ -90,7 +90,6 @@ spread2 <- spread[sample(nrow(spread), 100, replace = FALSE),]
 head(spread2)
 
 write.table(spread2, file = "spread2.xls", sep = "\t", row.names = TRUE, col.names = TRUE)
-
 library(xlsx)
 write.xlsx(x = spread2, file = "spread2.xlsx",
            sheetName = "spread2", row.names = FALSE)
