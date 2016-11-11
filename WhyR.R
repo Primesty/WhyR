@@ -136,7 +136,8 @@ crimeCountYear <- crimeData %>%
         summarize(CountYear = sum(Count))
 
 ggplot(crimeCountYear, aes(Year, CountYear)) +
-        geom_line()
+        geom_line() +
+        scale_y_continuous(labels = comma)
 
 crimeCountYear2 <- crimeData %>%
         group_by(Year, Type.of.Crime) %>%
