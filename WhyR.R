@@ -181,7 +181,7 @@ head(crime2000,10)
 library(scales) # for label formatting
 library(RColorBrewer)
 
-crime <-ggplot(crime2000, aes(reorder(State,counts), counts)) + 
+crime <- ggplot(crime2000, aes(reorder(State,counts), counts)) + 
         geom_bar(stat = "identity", aes(fill = State)) + 
         scale_fill_manual(values = brewer.pal(10, "Paired"), guide = FALSE) +
         theme(axis.text.x  = element_text(angle=45, vjust=0.5, size=10), axis.title.x = element_blank()) +
