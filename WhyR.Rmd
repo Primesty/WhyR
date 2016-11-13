@@ -1,7 +1,7 @@
 ---
 title: "WhyR"
 author: "M_Raess"
-date: "October 27, 2016"
+date: "November 13, 2016"
 output: html_document
 ---
 
@@ -18,7 +18,7 @@ library(findviews)
 library(yarrr)
 ```
 
-## 2. How R structures data - the data frame - test
+## 2. How R structures data - the data frame
 
 ### Working with built-in data sets
 
