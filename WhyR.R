@@ -48,7 +48,9 @@ ggplot(mtcars, aes(hp)) +
         geom_histogram(aes(y = ..density..), fill = "#fd5c63", binwidth = 10, col = "black") +
         stat_function(fun = dnorm, color = "goldenrod", lwd = 1,
                       args=list(mean = mean(mtcars$hp), sd = sd(mtcars$hp))) +
-        geom_density(color = "steelblue", lwd = 1, fill = "steelblue", alpha = .5)
+        geom_density(color = "steelblue", lwd = 1, fill = "steelblue", alpha = .5) +
+        labs(subtitle = "test", caption = 'test') + 
+        theme(plot.caption = element_text(hjust=0.5), plot.subtitle = element_text(hjust = 0.5))
 
 ### 4. Barplot for categorical variables
 

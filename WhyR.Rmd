@@ -22,8 +22,6 @@ library(yarrr)
 
 ### Working with built-in data sets
 
-### Our R-code will go here...
-
 ```{r, message=FALSE}
 data("mtcars")
 
