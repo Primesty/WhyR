@@ -7,7 +7,7 @@ output: html_document
 
 ## 1. Why R - packages to be used
 
-```{r, echo = FALSE, message=FALSE}
+```{r, echo = TRUE, message=FALSE}
 library(dplyr)
 library(ggplot2)
 library(scales)
@@ -24,7 +24,7 @@ library(yarrr)
 
 ### Our R-code will go here...
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 data("mtcars")
 
 head(mtcars) # gives us the first six rows alt. head(mtcars, 10)
@@ -33,9 +33,9 @@ summary(mtcars) # summary stats
 
 str(mtcars) # structure of your data set
 
-findviews(mtcars) # gives you a great overview of categorical and continous variables
+#findviews(mtcars) # gives you a great overview of categorical and continous variables
 
-View(mtcars) # brings up the data set
+#View(mtcars) # brings up the data set
 ```
 
 ### Now, that we have a general idea of how our data is structured, lets do some exploratory data analysis
@@ -44,25 +44,28 @@ View(mtcars) # brings up the data set
 
 ## 3. Histogram for quantitative variables
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 ggplot(mtcars, aes(hp)) +
         geom_histogram(binwidth = 10, fill = "red", col = "black") +
         ggtitle("Histogram HP") +
         xlab("Horsepower") +
         ylab("Counts")
 ```
+
+
 ### Alternatively (or additionally), we can overlay the density curve and the normal distribution
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 ggplot(mtcars, aes(hp)) +
         geom_histogram(aes(y = ..density..), fill = "#fd5c63", binwidth = 10, col = "black") +
         stat_function(fun = dnorm, color = "goldenrod", lwd = 1,
                       args=list(mean = mean(mtcars$hp), sd = sd(mtcars$hp))) +
         geom_density(color = "steelblue", lwd = 1, fill = "steelblue", alpha = .5)
 ```
+
 ## 4. Barplot for categorical variables
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 mtcars2 <- mtcars
 mtcars2 <- mutate(mtcars, gear = as.factor(gear)) # we have to change gear from num to fact
 
@@ -72,7 +75,7 @@ ggplot(mtcars2, aes(gear)) +
 
 ## 5. Working with colors - get brandcolors - woohoo - brandcolors.net (hex-code)
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 myColors <- c("#1da1f2", "#fd5c63", "#003a70")
 names(myColors) <- levels(mtcars2$gear)
 names(myColors) <- c("4", "3", "5") # change the level-colors according to order
@@ -80,7 +83,7 @@ names(myColors) <- c("4", "3", "5") # change the level-colors according to order
 
 ### Colors with RColorBrewer and yarrr
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 display.brewer.all()
 
 myColors2 <- brewer.pal(3, "Pastel1")
@@ -92,7 +95,7 @@ myColors3 <- unname(piratepal(palette = "google"))
 
 ## 6. Boxplots for quantitative variables
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 ggplot(mtcars2, aes(gear, hp)) +
         geom_boxplot(aes(fill = gear), col = "orange", show.legend = TRUE) +
@@ -113,7 +116,7 @@ ggplot(mtcars2, aes(gear, hp)) +
 
 ### Some data-processing to get mean hp (we create a new dataset with meanHP and cyl from mtcars)
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 meanHp <- mtcars %>%
         group_by(cyl) %>%
         filter(!is.na(hp)) %>%
@@ -122,7 +125,7 @@ meanHp <- mtcars %>%
 
 ### Actual plot
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 p1 <- ggplot(meanHp, aes(avg_hp, cyl, label = round(avg_hp, 2))) +
         geom_line(lwd = 2, col = "tomato") +
@@ -137,11 +140,13 @@ p1 <- ggplot(meanHp, aes(avg_hp, cyl, label = round(avg_hp, 2))) +
                 panel.grid.major = element_line(color = "grey"),
                 panel.grid.minor = element_line(color = "bisque"), # element_blank() gets rid of minor grid
                 panel.background = element_rect(fill = "lightblue"))
+
+p1
 ```
 
 ### Saving the plot as a .png file
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 ggsave(p1, filename = "AvgHP.png")
 ```
 
@@ -149,7 +154,7 @@ ggsave(p1, filename = "AvgHP.png")
 
 ### Getting the data
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 onlineData <- getURL("http://www.onthelambda.com/wp-content/uploads/2014/07/CrimeStatebyState.csv",
                      ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
@@ -162,7 +167,7 @@ rm(onlineData) # removes onlineData so we can keep everything nice and clean
 
 ## 9. Plot crime counts per year
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 head(crimeData)
 
@@ -181,11 +186,11 @@ crimeCountYear2 <- crimeData %>%
         summarize(CountYear = sum(Count))
 ```
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
-ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
-        geom_line() +
-        geom_point() +
+ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime, shape = Type.of.Crime)) +
+        geom_line(lwd = 1) +
+        geom_point(size = 3) +
         scale_color_manual(values = brewer.pal(2, "Paired")) +
         geom_smooth(method = "loess", na.rm = TRUE, se=TRUE, fullrange = TRUE, fill = "navy", color = 'tomato', level = .95, alpha = .6) +
         facet_grid(Type.of.Crime ~.) +
@@ -195,7 +200,7 @@ ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
 
 ## 10. We are getting more selective (only years 2002 and 2003)
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 crimeSel <- crimeData %>% 
         filter(Year == 2002:2003 & !is.na(Year)) %>% 
@@ -204,7 +209,7 @@ crimeSel <- crimeData %>%
         arrange(desc(counts))
 ```
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 crimeSel$Year <- as.factor(crimeSel$Year)
 
@@ -217,7 +222,7 @@ ggplot(crimeSel, aes(reorder(State, counts), counts, fill = Year)) +
 
 ## 11. Finally, we are going to plot the top ten of year 2000
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 crime2000 <- crimeData %>% 
         filter(Year == 2002) %>% 
@@ -229,7 +234,7 @@ crime2000 <- crimeData %>%
 head(crime2000,10)
 ```
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 
 library(scales) # for label formatting
 library(RColorBrewer)
@@ -242,10 +247,11 @@ crime <- ggplot(crime2000, aes(reorder(State,counts), counts)) +
         geom_text(aes(State, counts, label = counts), vjust = -0.5) +
         ggtitle("Top 10 states by total crimes") +
         ylab("Totals")
+crime
 ```
 
 ### Saving the plot
 
-```{r, echo = FALSE, message=FALSE}
+```{r, message=FALSE}
 ggsave(crime, filename = "crimePlot.png")
 ```

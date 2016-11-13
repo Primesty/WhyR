@@ -149,9 +149,9 @@ crimeCountYear2 <- crimeData %>%
         group_by(Year, Type.of.Crime) %>%
         summarize(CountYear = sum(Count))
 
-ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
-        geom_line() +
-        geom_point() +
+ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime, shape = Type.of.Crime)) +
+        geom_line(lwd = 1) +
+        geom_point(size = 3) +
         scale_color_manual(values = brewer.pal(2, "Paired")) +
         geom_smooth(method = "loess", na.rm = TRUE, se=TRUE, fullrange = TRUE, fill = "navy", color = 'tomato', level = .95, alpha = .6) +
         facet_grid(Type.of.Crime ~.) +
