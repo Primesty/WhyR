@@ -253,3 +253,24 @@ crime
 ```{r, message=FALSE}
 ggsave(crime, filename = "crimePlot.png")
 ```
+
+## 12. Gimmick - plotting with emojis
+
+```{r, message=FALSE}
+devtools::install_github("dill/emoGG")
+
+library(ggplot2)
+library(emoGG)
+
+## Find an emoji you want to use
+
+emoji_search("car")
+
+ggplot(mtcars, aes(wt, mpg)) + 
+        geom_emoji(emoji="1f697")
+
+emoji_search('smiley')
+
+ggplot(mtcars, aes(wt, mpg)) + 
+        geom_emoji(emoji="1f604")
+```

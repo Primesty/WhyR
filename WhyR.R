@@ -200,3 +200,23 @@ crime <- ggplot(crime2000, aes(reorder(State,counts), counts)) +
         ylab("Totals")
 
 ggsave(crime, filename = "crimePlot.png")
+
+### 12. Gimmick - plotting with emojis
+
+devtools::install_github("dill/emoGG")
+
+library(ggplot2)
+library(emoGG)
+
+## Find an emoji you want to use
+
+emoji_search("car")
+
+ggplot(mtcars, aes(wt, mpg)) + 
+        geom_emoji(emoji="1f697")
+
+emoji_search('smiley')
+
+ggplot(mtcars, aes(wt, mpg)) + 
+        geom_emoji(emoji="1f604")
+

@@ -73,3 +73,6 @@ library(findviews)
 
 ### 11. Finally, we are going to plot the top ten of year 2000
 
+
+### 12. Gimmick - plotting with emojis
+
