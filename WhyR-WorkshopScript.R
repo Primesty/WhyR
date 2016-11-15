@@ -3,7 +3,8 @@
 
 ## 1. Why R - installing and loading the necessary packages to be used
 
-install.packages('dplyr', 'ggplot2', 'scales', 'RColorBrewer', 'yarrr', 'RCurl', 'findviews')
+install.packages('dplyr', 'scales', 'RColorBrewer', 'yarrr', 'RCurl', 'findviews')
+install.packages('ggplot2')
 
 library(dplyr)
 library(ggplot2)
