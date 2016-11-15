@@ -3,6 +3,9 @@
 
 ## 1. Why R - packages to be used
 
+#install.packages('dplyr', 'scales', 'RColorBrewer', 'yarrr', 'RCurl', 'findviews')
+#install.packages('ggplot2')
+
 library(dplyr)
 library(ggplot2)
 library(scales)
