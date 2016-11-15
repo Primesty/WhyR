@@ -1,12 +1,13 @@
 
 ### Welcome to the WhyR Workshop - Take control of your data!! ### Starting right now! :)
 
-## 1. Why R - packages to be used
+## 1. Why R - installing and loading the necessary packages to be used
+
+install.packages('dplyr', 'ggplot2', 'scales', 'RColorBrewer', 'yarrr', 'RCurl', 'findviews')
 
 library(dplyr)
 library(ggplot2)
 library(scales)
-library(ggiraph)
 library(RColorBrewer)
 library(yarrr)
 library(RCurl)
