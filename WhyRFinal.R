@@ -1,24 +1,13 @@
-
-### Welcome to the WhyR Workshop - Take control of your data!! ### Starting right now! :)
-
-## 1. Why R - packages to be used
-
-#install.packages('dplyr', 'scales', 'RColorBrewer', 'yarrr', 'RCurl', 'findviews')
-#install.packages('ggplot2')
-
 library(dplyr)
 library(ggplot2)
 library(scales)
+library(ggiraph)
 library(RColorBrewer)
 library(yarrr)
 library(RCurl)
 library(findviews)
 
-## 2. How R structures data - the data frame - test
-
-# Working with built-in data sets
-
-## Our R-code will go here...
+## 1. How R structures data - the data frame - test
 
 data("mtcars")
 
@@ -32,11 +21,9 @@ findviews(mtcars) # gives you a great overview of categorical and continous vari
 
 View(mtcars) # brings up the data set
 
-## Now, that we have a general idea of how our data is structured, lets do some exploratory data analysis
+## 2. Built-in data sets
 
-# This is what we are using the ggplot2 package for
-
-### 3. Histogram for quantitative variables
+### Histogram for quantitative variables
 
 ggplot(mtcars, aes(hp)) +
         geom_histogram(binwidth = 10, fill = "red", col = "black") +
@@ -44,17 +31,7 @@ ggplot(mtcars, aes(hp)) +
         xlab("Horsepower") +
         ylab("Counts")
 
-## Alternatively (or additionally), we can overlay the density curve and the normal distribution
-
-ggplot(mtcars, aes(hp)) +
-        geom_histogram(aes(y = ..density..), fill = "#fd5c63", binwidth = 10, col = "black") +
-        stat_function(fun = dnorm, color = "goldenrod", lwd = 1,
-                      args=list(mean = mean(mtcars$hp), sd = sd(mtcars$hp))) +
-        geom_density(color = "steelblue", lwd = 1, fill = "steelblue", alpha = .5) +
-        labs(subtitle = "test", caption = 'test') + 
-        theme(plot.caption = element_text(hjust=0.5), plot.subtitle = element_text(hjust = 0.5))
-
-### 4. Barplot for categorical variables
+# Barplot for categorical variables
 
 mtcars2 <- mtcars
 mtcars2 <- mutate(mtcars, gear = as.factor(gear)) # we have to change gear from num to fact
@@ -62,7 +39,9 @@ mtcars2 <- mutate(mtcars, gear = as.factor(gear)) # we have to change gear from 
 ggplot(mtcars2, aes(gear)) +
         geom_bar(fill = "red", col = "black")
 
-### 5. Working with colors - get brandcolors - woohoo - brandcolors.net (hex-code)
+# Boxplots for quantitative variables
+
+## Get brandcolors - woohoo - brandcolors.net (hex-code)
 
 myColors <- c("#1da1f2", "#fd5c63", "#003a70")
 names(myColors) <- levels(mtcars2$gear)
@@ -78,13 +57,11 @@ piratepal(palette = "all") # yarrr
 
 myColors3 <- unname(piratepal(palette = "google"))
 
-### 6. Boxplots for quantitative variables
-
 ggplot(mtcars2, aes(gear, hp)) +
-        geom_boxplot(aes(fill = gear), col = "orange", show.legend = TRUE) +
+        geom_boxplot(aes(fill = gear), col = "black", show.legend = TRUE) +
         scale_fill_manual(name = "Gears", values = myColors3) +
         coord_flip() +
-        stat_summary(fun.y=mean, geom="point", shape=16, size=2, col = "yellow") +
+        stat_summary(fun.y=mean, geom="point", shape=16, size=2, col = "black") +
         stat_boxplot(geom = "errorbar", col = "red", lty = 2) +
         theme(axis.text = element_text(size = 12),
               panel.grid.major = element_line(color = "grey"),
@@ -94,38 +71,7 @@ ggplot(mtcars2, aes(gear, hp)) +
         xlab("Gears") +
         ylab("Horsepower")
 
-### 7. It is getting more intense - we are going to plot the meanHP/cylinder
-
-## Some data-processing to get mean hp (we create a new dataset with meanHP and cyl from mtcars)
-
-meanHp <- mtcars %>%
-        group_by(cyl) %>%
-        filter(!is.na(hp)) %>%
-        summarize(avg_hp = mean(hp, na.rm=TRUE))
-
-## Actual plot
-
-p1 <- ggplot(meanHp, aes(avg_hp, cyl, label = round(avg_hp, 2))) +
-        geom_line(lwd = 2, col = "tomato") +
-        geom_text(check_overlap = TRUE) + # the text and label add-ons overwrite the points! 
-        geom_label(color = "black", bg = "lightgrey") +
-        ggtitle("Average hp/cylinder") +
-        ylab("Cylinders") +
-        xlab("Average hp") +
-        scale_x_continuous(breaks=seq(0,220,20)) + # set tick marks manually
-        theme(
-                axis.text = element_text(size = 14),
-                panel.grid.major = element_line(color = "grey"),
-                panel.grid.minor = element_line(color = "bisque"), # element_blank() gets rid of minor grid
-                panel.background = element_rect(fill = "lightblue"))
-
-# Saving the plot as a .png file
-
-ggsave(p1, filename = "AvgHP.png")
-
-### 8. Now for the fun part, working with real-life online data (RCurl package) - crime statistics
-
-## Getting the data
+### 3. Getting some online data (RCurl package)
 
 onlineData <- getURL("http://www.onthelambda.com/wp-content/uploads/2014/07/CrimeStatebyState.csv",
                      ssl.verifyhost=FALSE, ssl.verifypeer=FALSE)
@@ -133,9 +79,9 @@ onlineData <- getURL("http://www.onthelambda.com/wp-content/uploads/2014/07/Crim
 class(onlineData) # needs to be put into a dataframe
 
 crimeData <- read.csv(textConnection(onlineData), header = TRUE)
-rm(onlineData) # removes onlineData so we can keep everything nice and clean
+rm(onlineData) # removes onlineData
 
-### 9. Plot crime counts per year
+### Plot crime counts per year
 
 head(crimeData)
 
@@ -153,16 +99,16 @@ crimeCountYear2 <- crimeData %>%
         group_by(Year, Type.of.Crime) %>%
         summarize(CountYear = sum(Count))
 
-ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime, shape = Type.of.Crime)) +
-        geom_line(lwd = 1) +
-        geom_point(size = 3) +
+ggplot(crimeCountYear2, aes(Year, CountYear, col = Type.of.Crime)) +
+        geom_line() +
+        geom_point() +
         scale_color_manual(values = brewer.pal(2, "Paired")) +
         geom_smooth(method = "loess", na.rm = TRUE, se=TRUE, fullrange = TRUE, fill = "navy", color = 'tomato', level = .95, alpha = .6) +
         facet_grid(Type.of.Crime ~.) +
         scale_x_continuous(breaks = c(1960, 1965, 2000)) +
         scale_y_continuous(labels = comma)
 
-### 10. We are getting more selective (only years 2002 and 2003)
+## We are getting more selective
 
 crimeSel <- crimeData %>% 
         filter(Year == 2002:2003 & !is.na(Year)) %>% 
@@ -178,7 +124,6 @@ ggplot(crimeSel, aes(reorder(State, counts), counts, fill = Year)) +
         theme(axis.text.x = element_text(angle = 90)) + 
         scale_y_continuous(labels = comma)
 
-### 11. Finally, we are going to plot the top ten of year 2000
 
 crime2000 <- crimeData %>% 
         filter(Year == 2002) %>% 
@@ -192,7 +137,7 @@ head(crime2000,10)
 library(scales) # for label formatting
 library(RColorBrewer)
 
-crime <- ggplot(crime2000, aes(reorder(State,counts), counts)) + 
+crime <-ggplot(crime2000, aes(reorder(State,counts), counts)) + 
         geom_bar(stat = "identity", aes(fill = State)) + 
         scale_fill_manual(values = brewer.pal(10, "Paired"), guide = FALSE) +
         theme(axis.text.x  = element_text(angle=45, vjust=0.5, size=10), axis.title.x = element_blank()) +
@@ -202,23 +147,3 @@ crime <- ggplot(crime2000, aes(reorder(State,counts), counts)) +
         ylab("Totals")
 
 ggsave(crime, filename = "crimePlot.png")
-
-### 12. Gimmick - plotting with emojis
-
-devtools::install_github("dill/emoGG")
-
-library(ggplot2)
-library(emoGG)
-
-## Find an emoji you want to use
-
-emoji_search("car")
-
-ggplot(mtcars, aes(wt, mpg)) + 
-        geom_emoji(emoji="1f697")
-
-emoji_search('smiley')
-
-ggplot(mtcars, aes(wt, mpg)) + 
-        geom_emoji(emoji="1f604")
-
