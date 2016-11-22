@@ -1,13 +1,18 @@
 ---
 title: "WhyR"
 author: "M_Raess"
-date: "November 13, 2016"
+date: "November 22, 2016"
 output:
   pdf_document: default
   html_document: default
 ---
 
 ## 1. Why R - packages to be used
+
+```{r, echo = TRUE, message=FALSE, eval = FALSE}
+install.packages('dplyr', 'scales', 'RColorBrewer', 'yarrr', 'RCurl', 'findviews')
+install.packages('ggplot2')
+```
 
 ```{r, echo = TRUE, message=FALSE}
 library(dplyr)
