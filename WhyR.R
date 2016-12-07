@@ -42,7 +42,8 @@ ggplot(mtcars, aes(hp)) +
         geom_histogram(binwidth = 10, fill = "red", col = "black") +
         ggtitle("Histogram HP") +
         xlab("Horsepower") +
-        ylab("Counts")
+        ylab("Counts") +
+        theme(plot.caption = element_text(hjust=0.5), plot.title = element_text(hjust = 0.5)
 
 ## Alternatively (or additionally), we can overlay the density curve and the normal distribution
 
