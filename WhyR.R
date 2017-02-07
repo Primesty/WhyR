@@ -79,6 +79,8 @@ piratepal(palette = "all") # yarrr
 
 myColors3 <- unname(piratepal(palette = "google"))
 
+### Workshop - skip to 8 - online data
+
 ### 6. Boxplots for quantitative variables
 
 ggplot(mtcars2, aes(gear, hp)) +

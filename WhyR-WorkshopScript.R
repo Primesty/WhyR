@@ -47,26 +47,7 @@ str(mtcars) # structure of your data set
 ## Colors with RColorBrewer and yarrr
 
 
-
-### 6. Boxplots for quantitative variables
-
-
-
-### 7. It is getting more intense - we are going to plot the meanHP/cylinder
-
-## Some data-processing to get mean hp (we create a new dataset with meanHP and cyl from mtcars)
-
-
-
-## Actual plot
-
-
-
-# Saving the plot as a .png file
-
-
-
-### 8. Now for the fun part, working with real-life online data (RCurl package) - crime statistics
+### 6. Now for the fun part, working with real-life online data (RCurl package) - crime statistics
 
 ## Getting the data
 
@@ -81,27 +62,17 @@ crimeData <- read.csv(textConnection(onlineData), header = TRUE)
 
 rm(onlineData) # removes onlineData so we can keep everything nice and clean
 
-### 9. Plot crime counts per year
-
-head(crimeData)
-
-str(crimeData)
-
-crimeCountYear <- crimeData %>%
-        group_by(Year) %>%
-        summarize(CountYear = sum(Count))
-
-ggplot(crimeCountYear, aes(Year, CountYear)) +
-        geom_line(color = "red", lwd = 2) +
-        scale_y_continuous(labels = comma)
-
-
-### 10. We are getting more selective (only years 2002 and 2003)
+### 7. Plot crime counts per year
 
 
 
-### 11. Finally, we are going to plot the top ten of year 2000
+
+### 8. We are getting more selective (only years 2002 and 2003)
 
 
-### 12. Gimmick - plotting with emojis
+
+### 9. Finally, we are going to plot the top ten of year 2000
+
+
+### 10. Gimmick - plotting with emojis
 
