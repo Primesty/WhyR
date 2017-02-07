@@ -54,6 +54,7 @@ y = sample(y, 20, replace = TRUE)
 testData <- data.frame(ID = x, Factor = y)
 testData
 str(testData)
+
 library(ggplot2)
 
 ggplot(testData, aes(ID)) +
