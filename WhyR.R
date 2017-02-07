@@ -43,7 +43,7 @@ ggplot(mtcars, aes(hp)) +
         ggtitle("Histogram HP") +
         xlab("Horsepower") +
         ylab("Counts") +
-        theme(plot.caption = element_text(hjust=0.5), plot.title = element_text(hjust = 0.5)
+        theme(plot.caption = element_text(hjust=0.5), plot.title = element_text(hjust = 0.5))
 
 ## Alternatively (or additionally), we can overlay the density curve and the normal distribution
 
@@ -52,8 +52,9 @@ ggplot(mtcars, aes(hp)) +
         stat_function(fun = dnorm, color = "goldenrod", lwd = 1,
                       args=list(mean = mean(mtcars$hp), sd = sd(mtcars$hp))) +
         geom_density(color = "steelblue", lwd = 1, fill = "steelblue", alpha = .5) +
-        labs(subtitle = "test", caption = 'test') + 
-        theme(plot.caption = element_text(hjust=0.5), plot.subtitle = element_text(hjust = 0.5))
+        labs(title = "Hp - NormDist + Density", subtitle = "Test", caption = 'Test') + 
+        theme(plot.title = element_text(hjust = 0.5), 
+              plot.caption = element_text(hjust=0.5), plot.subtitle = element_text(hjust = 0.5))
 
 ### 4. Barplot for categorical variables
 
