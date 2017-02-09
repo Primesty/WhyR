@@ -1,7 +1,7 @@
 ---
 title: "WhyR"
 author: "M_Raess"
-date: "November 28, 2016"
+date: "February 7, 2017"
 output:
   pdf_document: default
   html_document: default
@@ -14,6 +14,9 @@ install.packages('dplyr', 'scales', 'RColorBrewer', 'yarrr', 'RCurl', 'findviews
 install.packages('ggplot2')
 ```
 
+If the packages do not load or you get an error message, please install them one-by-one through the 'packages' tab and then the 'install' tab in the lower-right window in RStudio.
+
+The next couple of lines of code load the packages you are going to need for all the fun stuff...
 ```{r, echo = TRUE, message=FALSE}
 library(dplyr)
 library(ggplot2)
@@ -58,7 +61,7 @@ ggplot(mtcars, aes(hp)) +
 ```
 
 
-### Alternatively (or additionally), we can overlay the density curve and the normal distribution
+### Alternatively (or additionally), we can overlay a density curve and the normal distribution
 
 ```{r, message=FALSE}
 ggplot(mtcars, aes(hp)) +
